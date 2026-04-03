@@ -6,7 +6,9 @@ from databricks.sdk.core import Config
 from databricks import sql
 
 
-VOLUME_PATH = os.getenv("VOLUME_PATH", "/Volumes/bharatbricks/iiscb/datasets/arxiv")
+VOLUME_FQDN = os.getenv("VOLUME_FQDN", "bharatbricks.iiscb.datasets")
+VOLUME_SUBFOLDER = os.getenv("VOLUME_SUBFOLDER", "arxiv")
+VOLUME_PATH = f"/Volumes/{VOLUME_FQDN.replace('.', '/')}/{VOLUME_SUBFOLDER}"
 WAREHOUSE_ID = os.getenv("DATABRICKS_WAREHOUSE_ID", "")
 
 cfg = Config()
