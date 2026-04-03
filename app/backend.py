@@ -6,7 +6,17 @@ from databricks.sdk.core import Config
 from databricks import sql
 
 
-VOLUME_PATH = os.getenv("VOLUME_PATH", "/Volumes/bharatbricks/iiscb/datasets/arxiv")
+VOLUME_BASE = os.getenv("VOLUME_FQDN", "/Volumes/bharatbricks/iiscb/datasets")
+VOLUME_SUBFOLDER = os.getenv("VOLUME_SUBFOLDER", "arxiv")
+
+# valueFrom: volume resolves to "/Volumes/catalog/schema/volume" already
+if VOLUME_BASE.startswith("/Volumes"):
+    VOLUME_PATH = f"{VOLUME_BASE}/{VOLUME_SUBFOLDER}"
+else:
+    # Fallback for dot-separated FQDN (e.g., "catalog.schema.volume")
+    VOLUME_PATH = f"/Volumes/{VOLUME_BASE.replace('.', '/')}/{VOLUME_SUBFOLDER}"
+
+print(f"[bharatbricks] VOLUME_PATH={VOLUME_PATH}")
 WAREHOUSE_ID = os.getenv("DATABRICKS_WAREHOUSE_ID", "")
 
 cfg = Config()
@@ -62,7 +72,10 @@ def get_file_preview(filename: str, user_token: str | None = None) -> dict:
 
     try:
         with conn.cursor() as cursor:
-            query = f"SELECT * FROM json.`{file_path}` LIMIT 1"
+            query = (
+                f"SELECT * FROM read_files('{file_path}', "
+                f"format => 'json', multiLine => 'true') LIMIT 1"
+            )
             cursor.execute(query)
 
             schema = []

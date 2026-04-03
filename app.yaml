@@ -13,10 +13,10 @@ env:
   - name: DATABRICKS_WAREHOUSE_ID
     valueFrom: sql-warehouse
 
-  # ── value examples (static configuration) ──
-  - name: VOLUME_PATH
-    value: "/Volumes/bharatbricks/iiscb/datasets/arxiv"
-  - name: CATALOG_NAME
-    value: "bharatbricks"
-  - name: SCHEMA_NAME
-    value: "iiscb"
+  # valueFrom gives the volume FQDN (e.g., "bharatbricks.iiscb.datasets")                                                                                                                       
+  - name: VOLUME_FQDN                                                                                                                                                                           
+    valueFrom: volume
+  # ── static value examples ──
+  # Subfolder within the volume where JSON files live                                                                                                                                           
+  - name: VOLUME_SUBFOLDER
+    value: "arxiv"        
