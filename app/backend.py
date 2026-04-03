@@ -62,7 +62,10 @@ def get_file_preview(filename: str, user_token: str | None = None) -> dict:
 
     try:
         with conn.cursor() as cursor:
-            query = f"SELECT * FROM json.`{file_path}` LIMIT 1"
+            query = (
+                f"SELECT * FROM read_files('{file_path}', "
+                f"format => 'json', multiLine => 'true') LIMIT 1"
+            )
             cursor.execute(query)
 
             schema = []
