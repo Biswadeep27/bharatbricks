@@ -15,7 +15,7 @@ env:
 
   # ── value examples (static configuration) ──
   - name: VOLUME_PATH
-    value: "/Volumes/bharatbricks/iiscb/datasets/arxiv"
+    valueFrom: volume
   - name: CATALOG_NAME
     value: "bharatbricks"
   - name: SCHEMA_NAME
