@@ -1,0 +1,40 @@
+[project]
+name = "bharatbricks"
+version = "0.1.0"
+description = "ArXiv Research Paper Explorer - Databricks App for IISc Bangalore"
+readme = "README.md"
+authors = [
+    { name = "Biswadeep Upadhyay" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn>=0.30.0",
+    "databricks-sdk>=0.40.0",
+    "databricks-sql-connector>=3.0.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/arxiv_distil"]
+
+[dependency-groups]
+dev = [
+    "hatchling>=1.28.0",
+    "pytest>=9.0.2",
+]
+
+setup = [
+    "ruamel.yaml>=0.18.0",
+]
+
+[tool.uv]
+default-groups = ["dev", "setup"]
+
+[project.scripts]
+start-app = "scripts.start_app:main"
+preflight = "scripts.preflight:main"
+quickstart = "scripts.quickstart:main"

@@ -1,0 +1,22 @@
+command:
+  - "uvicorn"
+  - "app.main:app"
+  - "--host"
+  - "0.0.0.0"
+  - "--port"
+  - "8000"
+
+env:
+  # ── valueFrom examples (resource references - resolved by Databricks Apps runtime) ──
+  # The key (e.g., "sql-warehouse") must match the resource key you assign
+  # when adding the resource in the Databricks Apps UI.
+  - name: DATABRICKS_WAREHOUSE_ID
+    valueFrom: sql-warehouse
+
+  # ── value examples (static configuration) ──
+  - name: VOLUME_PATH
+    value: "/Volumes/bharatbricks/iiscb/datasets/arxiv"
+  - name: CATALOG_NAME
+    value: "bharatbricks"
+  - name: SCHEMA_NAME
+    value: "iiscb"
