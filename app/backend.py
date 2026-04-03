@@ -7,8 +7,11 @@ from databricks import sql
 
 
 VOLUME_FQDN = os.getenv("VOLUME_FQDN", "bharatbricks.iiscb.datasets")
+print(f"VOLUME_FQDN: {VOLUME_FQDN}")
 VOLUME_SUBFOLDER = os.getenv("VOLUME_SUBFOLDER", "arxiv")
+print(f"VOLUME_SUBFOLDER: {VOLUME_SUBFOLDER}")
 VOLUME_PATH = f"/Volumes/{VOLUME_FQDN.replace('.', '/')}/{VOLUME_SUBFOLDER}"
+print(f"VOLUME_PATH: {VOLUME_PATH}")
 WAREHOUSE_ID = os.getenv("DATABRICKS_WAREHOUSE_ID", "")
 
 cfg = Config()
